@@ -1,5 +1,7 @@
 package net.aindrigo.ainEngine.main;
 
-public class Engine {
+import net.aindrigo.ainEngine.renderers.RenderManager;
 
+public class Engine {
+    public RenderManager renderManager = new RenderManager();
 }
