@@ -1,12 +1,14 @@
 plugins {
     id 'java'
-}
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
 
+}
 group 'net.aindrigo'
 version '1.0-SNAPSHOT'
 project.ext.lwjglVersion = "3.2.3"
 project.ext.jomlVersion = "1.10.0"
 project.ext.lwjglNatives = "natives-windows"
+apply plugin: 'java'
 repositories {
     mavenCentral()
 }
@@ -88,7 +90,19 @@ dependencies {
     runtimeOnly "org.lwjgl:lwjgl-zstd::$lwjglNatives"
     implementation "org.joml:joml:${jomlVersion}"
 }
+shadowJar{
+    dependencies{
 
+    }
+}
+jar{
+    manifest{
+        attributes("Main-Class":"net.aindrigo.ainEngine.test.TESTCLASS")
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
 test {
     useJUnitPlatform()
 }
